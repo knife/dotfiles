@@ -36,7 +36,7 @@ Bundle  "tpope/vim-vividchalk.git"
 Bundle  "tsaleh/vim-align.git"
 Bundle  "tsaleh/vim-shoulda.git"
 Bundle  "tsaleh/vim-supertab.git"
-Bundle  "tsaleh/vim-tcomment.git"
+Bundle  "tomtom/tcomment_vim"
 Bundle  "vim-ruby/vim-ruby.git"
 Bundle  "jamis/fuzzyfinder_textmate"
 Bundle  "vim-scripts/FuzzyFinder"
@@ -44,10 +44,11 @@ Bundle  "vim-scripts/L9"
 Bundle  "vim-scripts/VimClojure"
 Bundle  "kchmck/vim-coffee-script"
 Bundle  "kien/ctrlp.vim.git"
+Bundle  "mileszs/ack.vim"
+Bundle  "mileszs/apidock.vim"
 
 " vim-scripts repos on github
 Bundle 'IndexedSearch'
-Bundle 'jquery'
 
 filetype plugin indent on
 
@@ -62,9 +63,7 @@ filetype plugin indent on
 
 set tw=80
 :se number
-
 set autoindent
-
 :set softtabstop=2 shiftwidth=2 expandtab
 
 
@@ -77,6 +76,7 @@ set autoindent
 
 "caps lock maping
 set <F13>=^[[25~
+
 
 
 "search
@@ -107,6 +107,18 @@ map fh <C-w><Left>
 
 let g:ctrlp_map = ','
 let g:ctrlp_cmd = 'CtrlP'
+
+"let mapleader=" "
+"nnoremap <Leader>q :q<CR>
+"nnoremap <Leader>w :w<CR>
+"nnoremap <Leader>e :e
+"nnoremap <Leader>v :vsplit
+"nnoremap <Leader>s :split
+"nnoremap <Leader>g :vimgrep
+"nnoremap <Leader>c :copen<CR>
+"nnoremap <Leader>C :cclose<CR>
+
+
 
 "autocomplete
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
