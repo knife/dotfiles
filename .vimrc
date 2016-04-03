@@ -1,61 +1,75 @@
-set nobackup
+"no backup
+set nobackup  
 set nowritebackup
 set noswapfile
-set showtabline=2
+
+set showtabline=2 "always show tabline
 set nocompatible
+filetype off
+
+"turn off wraping lines
+set textwidth=0 
+set wrapmargin=0
+
+"set cursorline "highlight current line
 
 "Vundle
-filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()" let Vundle manage Vundle
-
-set t_Co=256
-
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
 
 
 " required! 
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 " My Bundles here:
 "
 " original repos on github
 
-Bundle  "astashov/vim-ruby-debugger.git"
-Bundle  "msanders/snipmate.vim.git"
-Bundle  "scrooloose/nerdtree.git"
-Bundle  "timcharper/textile.vim.git"
-Bundle  "tpope/vim-cucumber.git"
-Bundle  "tpope/vim-fugitive.git"
-Bundle  "tpope/vim-git.git"
-Bundle  "tpope/vim-haml.git"
-Bundle  "tpope/vim-markdown.git"
-Bundle  "tpope/vim-rails.git"
-Bundle  "tpope/vim-repeat.git"
-Bundle  "tpope/vim-surround.git"
-Bundle  "tpope/vim-vividchalk.git"
-Bundle  "tsaleh/vim-align.git"
-Bundle  "tsaleh/vim-shoulda.git"
-Bundle  "tsaleh/vim-supertab.git"
-Bundle  "tomtom/tcomment_vim"
-Bundle  "vim-ruby/vim-ruby.git"
-Bundle  "jamis/fuzzyfinder_textmate"
-Bundle  "vim-scripts/FuzzyFinder"
-Bundle  "vim-scripts/L9"
-Bundle  "vim-scripts/VimClojure"
-Bundle  "kchmck/vim-coffee-script"
-Bundle  "kien/ctrlp.vim.git"
-Bundle  "mileszs/ack.vim"
-Bundle  "mileszs/apidock.vim"
+Plugin  'msanders/snipmate.vim'
+Plugin  'scrooloose/nerdtree'
+Plugin  'tpope/vim-cucumber'
+Plugin  'tpope/vim-fugitive'
+Plugin  'tpope/vim-git'
+Plugin  'tpope/vim-haml'
+Plugin  'tpope/vim-markdown'
+Plugin  'tpope/vim-rails'
+Plugin  'tpope/vim-repeat'
+Plugin  'tpope/vim-surround'
+Plugin  'tsaleh/vim-align'
+Plugin  'tsaleh/vim-supertab'
+Plugin  'tomtom/tcomment_vim'
+Plugin  'vim-ruby/vim-ruby'
+Plugin  'vim-scripts/L9'
+Plugin  'kchmck/vim-coffee-script'
+Plugin  'kien/ctrlp.vim.git'
+Plugin  'mileszs/ack.vim'
+Plugin  'knife/apidock.vim'
+Plugin  'Townk/vim-autoclose'
+Plugin  'scrooloose/syntastic'
+Plugin  'ngmy/vim-rubocop'
+Plugin 'janko-m/vim-test'
+Plugin 'vim-airline/vim-airline'
+Plugin 'tpope/vim-endwise.git'
+Plugin 'skwp/greplace.vim'
+Bundle 'groenewege/vim-less'
+Bundle 'rking/ag.vim'
 
 " vim-scripts repos on github
 Bundle 'IndexedSearch'
 
-filetype plugin indent on
 
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+" CTRLP
 set runtimepath^=~/.vim/bundle/ctrlp.vim
+let g:ctrlp_working_path_mode=0
 
 set syntax=on
-filetype plugin indent on
 :se enc=utf8
 "source $VIMRUNTIME\gvimrc_example.vim
 "source $VIMRUNTIME\mswin.vim
@@ -66,18 +80,29 @@ set tw=80
 set autoindent
 :set softtabstop=2 shiftwidth=2 expandtab
 
-
-" Needed on some linux distros.
-" see http://www.adamlowe.me/2009/12/vim-destroys-all-other-rails-editors.html
-" filetype off 
-" call pathogen#helptags()
-" call pathogen#runtime_append_all_bundles()
-" 
+set list          " Display unprintable characters f12 - switches
+set listchars=tab:•\ ,trail:•,extends:»,precedes:« " Unprintable chars mapping
 
 "caps lock maping
 set <F13>=^[[25~
 
+"let JSHintUpdateWriteOnly=1
+"let g:JSHintHighlightErrorLine = 0
 
+"vim-test
+nmap <silent> <leader>j :TestNearest<CR>
+nmap <silent> <leader>d :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>g :TestVisit<CR>
+
+"splits
+nmap <silent> <leader>s :split<CR>
+nmap <silent> <leader>v :vsplit<CR>
+
+"ctags
+map tl <c-]>
+map tk <c-t>
 
 "search
 map gr :grep <cword> *<CR>
@@ -85,16 +110,8 @@ map gr :grep <cword> %:p:h/*<CR>
 map gR :grep \b<cword>\b *<CR>
 map GR :grep \b<cword>\b %:p:h/*<CR>
 
-" tab navigation like firefox 
-:nmap <C-S-tab> :tabprevious<CR> 
-:nmap <C-tab> :tabnext<CR> 
-:map <C-S-tab> :tabprevious<CR>
-:map <C-tab> :tabnext<CR> 
-:imap <C-S-tab> <ESC>:tabprevious<CR>i 
-:imap <C-tab> <ESC>:tabnext<CR>i 
-:nmap <C-t> :tabnew<CR> 
-:imap <C-t> <ESC>:tabnew<CR>
 
+" tab navigation like firefox 
 :nmap tn :tabnew<cr>
 :nmap tj :tabnext<cr>
 :nmap th :tabprevious<cr>
@@ -108,6 +125,13 @@ map fh <C-w><Left>
 let g:ctrlp_map = ','
 let g:ctrlp_cmd = 'CtrlP'
 
+:nmap ; :Ag!<cr>
+:nmap = :RuboCop<cr>
+
+" ignore files
+set wildignore+=*/bower_components/*     " MacOSX/Linux
+let g:ctrlp_custom_ignore = '\v[\/]\bower_components$'
+
 "let mapleader=" "
 "nnoremap <Leader>q :q<CR>
 "nnoremap <Leader>w :w<CR>
@@ -118,6 +142,13 @@ let g:ctrlp_cmd = 'CtrlP'
 "nnoremap <Leader>c :copen<CR>
 "nnoremap <Leader>C :cclose<CR>
 
+noremap <space> :
+
+"supertab map
+inoremap <expr> <Space> pumvisible() ? "\<C-y>" : " "
+
+"cp - change element with contents of buffer
+nmap <silent> cp "_cw<C-R>"<Esc>
 
 
 "autocomplete
@@ -134,6 +165,9 @@ autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 
 " nerd tree
 nmap tt :NERDTreeToggle<cr>
+" show hidden files
+" let NERDTreeShowHidden=1
+
 
 " fuzzy finder
 nmap ff :FufCoverageFile **/<CR>
@@ -143,6 +177,13 @@ nmap bb :FufBuffer **/<CR>
 au Bufread,BufNewFile *.feature set filetype=gherkin
 au! Syntax gherkin source ~/.vim/cucumber.vim
 
+" Syntastic
+" let g:syntastic_javascript_checkers = ['jshint']
+"  let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+"  let g:syntastic_ruby_rubocop_exec = '/home/knife/.rvm/gems/ruby-2.1.2/bin/rubocop'
+"  let g:syntastic_enable_signs=1
+"  let g:syntastic_auto_loc_list=1
+"
 "improve autocomplete menu color
 highlight Pmenu ctermbg=238 gui=bold
 
